@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" ng-app="todo">
+<head>
+	<meta charset="UTF-8">
+	<title>iCloud提醒事项</title>
+	 <script src="js/angular.min.js"></script>
+	 <script src="js/icloud.js"></script>
+	 <link rel="stylesheet" href="css/icloud.css">
+</head>
+<body ng-controller="todolist">
+	<div class="left">
+		<div class="ltitle">
+			<span ng-click="add()">+</span>
+			<div class="logo"></div>
+			<div class="font">提醒事项</div>
+		</div>
+		<ul class="list">
+			<li ng-repeat="v in list track by $index" ng-class="{'active':v.id ==currentId}" n="{{v.id}}" ng-click="getItem(v.id)">
+				<div class="l-color">
+					<span ng-style="{'background':v.color}"></span>
+				</div>
+				<div class="l-t">
+					{{v.title}}
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="right">
+		<div class="r-title">
+			<div class="fdj"></div>
+			<input type="text" placeholder="搜索所有提醒">
+		</div>
+		<div class="r-list">
+			<div class="r-t" ng-style="{'color':now.color}">
+				<h3 ng-style="{'color':now.color}">{{now.title}}</h3>
+			<div ng-style="{'color':now.color}">选项</div>
+			</div>
+			<div>
+			<h4>已完成</h4>
+				<br>
+			</div>
+		<div class="r-com">
+		<li ng-repeat="v in now.list | done:true">
+			<div ng-click="v.done=false;change()" ng-style="{'background-color':now.color,'border-color':now.color}"></div>
+            <input type="text" ng-model="i.title" ng-blur="change()">
+			</li>
+		</div>
+		<hr>
+		<h4>未完成</h4>
+
+		 <div class="now">
+			<li ng-repeat="i in now.list | done:false">
+				<div ng-click="i.done=true;change()" ng-style="{'background-color':rgba(0,0,0,0),'border-color':now.color}"></div>
+			<input type="text" ng-model="i.title" ng-blur="change()">
+			</li>
+		</div>
+		<div class="f1"ng-click="addList()">
+			新项目...
+		</div>
+	</div>
+	</div>
+</body>
+</html>
